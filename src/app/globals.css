@@ -1,26 +1,390 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   MOHAMMED BIBO — PORTFOLIO
+   A single long-scroll page whose ENTIRE identity (color, type, radius, motion)
+   morphs from one brand world to the next. The shell is monochrome ink; each
+   project floods the room with its own real brand system.
+   ========================================================================== */
+
+/* ----- Registered custom properties so colors INTERPOLATE (not snap) ------- */
+@property --bg        { syntax: "<color>"; inherits: true; initial-value: #08080a; }
+@property --bg-2      { syntax: "<color>"; inherits: true; initial-value: #101014; }
+@property --fg        { syntax: "<color>"; inherits: true; initial-value: #f4f4f5; }
+@property --muted     { syntax: "<color>"; inherits: true; initial-value: #8a8a94; }
+@property --surface   { syntax: "<color>"; inherits: true; initial-value: #121215; }
+@property --surface-2 { syntax: "<color>"; inherits: true; initial-value: #17171b; }
+@property --border    { syntax: "<color>"; inherits: true; initial-value: rgba(244,244,245,0.10); }
+@property --accent    { syntax: "<color>"; inherits: true; initial-value: #f4f4f5; }
+@property --accent-ink{ syntax: "<color>"; inherits: true; initial-value: #08080a; }
+@property --accent-2  { syntax: "<color>"; inherits: true; initial-value: #a1a1aa; }
+@property --spotlight { syntax: "<color>"; inherits: true; initial-value: rgba(255,255,255,0.05); }
+
+/* ----- Base theme = the SHELL (Mohammed's own monochrome-ink identity) ----- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #08080a;
+  --bg-2: #101014;
+  --fg: #f4f4f5;
+  --muted: #8a8a94;
+  --surface: #121215;
+  --surface-2: #17171b;
+  --border: rgba(244, 244, 245, 0.10);
+  --accent: #f4f4f5;          /* shell accent is bone-white: NO chroma in the frame */
+  --accent-ink: #08080a;
+  --accent-2: #a1a1aa;
+  --spotlight: rgba(255, 255, 255, 0.05);
+
+  --radius: 14px;
+  --grid: rgba(140, 140, 150, 0.10);   /* decorative grids — NOT morph-animated (perf) */
+  --grid-accent: rgba(20, 132, 172, 0.12);
+  --morph: 700ms;
+  --ease: cubic-bezier(0.7, 0, 0.2, 1);         /* the global theme-morph curve */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);    /* expo-out for reveals         */
+
+  /* Type roles — swapped per world. Defaults = shell type. */
+  --font-display: var(--font-space);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jbmono);
+  --font-serif: var(--font-fraunces);
+
+  --page-x: clamp(1.25rem, 5vw, 6rem);
+  --maxw: 1240px;
+
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* The morph: only the tokens that read large on screen are eased (keeps the
+   per-frame repaint cheap). The rest snap — imperceptible, and much lighter. */
+:root {
+  transition:
+    --bg var(--morph) var(--ease),
+    --fg var(--morph) var(--ease),
+    --muted var(--morph) var(--ease),
+    --surface var(--morph) var(--ease),
+    --border var(--morph) var(--ease),
+    --accent var(--morph) var(--ease),
+    --radius var(--morph) var(--ease);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------------------------- DELIVVO world -------------------------------- */
+/* Dark editorial SaaS · indigo functional accent · amber signature spark      */
+[data-theme="delivvo"] {
+  --bg: #09090b;
+  --bg-2: #0d0d11;
+  --fg: #fafafa;
+  --muted: #a1a1aa;
+  --surface: #141416;
+  --surface-2: #1a1a1e;
+  --border: rgba(255, 255, 255, 0.09);
+  --accent: #6366f1;         /* indigo-500 */
+  --accent-ink: #ffffff;
+  --accent-2: #f0b429;       /* the amber live-dot spark */
+  --spotlight: rgba(240, 180, 41, 0.10);
+  --radius: 12px;
+  --font-display: var(--font-unbounded);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jbmono);
+  --font-serif: var(--font-fraunces);
+  color-scheme: dark;
 }
+
+/* ------------------------------ BMT world ---------------------------------- */
+/* Industrial spec-sheet · dark steel ground · one disciplined blue · ZERO radius */
+[data-theme="bmt"] {
+  --bg: #2a2825;
+  --bg-2: #232120;
+  --fg: #f5f3f0;
+  --muted: #b7b0a3;
+  --surface: #33302c;
+  --surface-2: #3d3a36;
+  --border: rgba(183, 176, 163, 0.22);
+  --accent: #006cb4;         /* industrial blue */
+  --accent-ink: #ffffff;
+  --accent-2: #2e8fd0;
+  --spotlight: rgba(0, 108, 180, 0.14);
+  --radius: 0px;             /* the brand IS squared */
+  --font-display: var(--font-archivo);
+  --font-body: var(--font-plexsans);
+  --font-mono: var(--font-plexmono);
+  --font-serif: var(--font-plexsans);
+  color-scheme: dark;
+}
+
+/* ------------------------------ MedA+ world -------------------------------- */
+/* Light clinical flat · teal-forward · calm, airy, instrument-precise         */
+[data-theme="meda"] {
+  --bg: #f8fafc;
+  --bg-2: #eef3fb;
+  --fg: #0f172a;
+  --muted: #475569;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --border: #e2e8f0;
+  --accent: #116c90;         /* clinical teal */
+  --accent-ink: #ffffff;
+  --accent-2: #0e9ac0;
+  --spotlight: rgba(22, 132, 172, 0.10);
+  --radius: 12px;
+  --font-display: var(--font-jakarta);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-plexmono);
+  --font-serif: var(--font-jakarta);
+  color-scheme: light;
+}
+
+/* --------------------------------- base ------------------------------------ */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  transition: background var(--morph) var(--ease), color var(--morph) var(--ease);
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* thin, theme-aware scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--muted) 45%, transparent);
+  border-radius: 999px; border: 2px solid transparent; background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg, video { display: block; max-width: 100%; }
+
+/* -------------------------- type role utilities ---------------------------- */
+.type-display { font-family: var(--font-display), var(--font-body), sans-serif; }
+.type-body    { font-family: var(--font-body), system-ui, sans-serif; }
+.type-mono    { font-family: var(--font-mono), ui-monospace, monospace; font-feature-settings: "tnum" 1; }
+.type-serif   { font-family: var(--font-serif), Georgia, serif; }
+
+.text-muted { color: var(--muted); }
+.text-accent { color: var(--accent); }
+.on-surface { background: var(--surface); }
+
+/* balanced, tight display headings */
+.display {
+  font-family: var(--font-display), sans-serif;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* eyebrow / kicker — mono, tracked, with a leading rule */
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+.eyebrow::before {
+  content: "";
+  width: 1.75rem; height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+.eyebrow.no-rule::before { display: none; }
+
+/* ------------------------------- surfaces ---------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.card-2 { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); }
+
+.hairline { border-color: var(--border); }
+
+/* ------------------------------- buttons ----------------------------------- */
+.btn {
+  --h: 3rem;
+  height: var(--h);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  padding-inline: 1.5rem;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 600; font-size: 0.95rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out), background 220ms ease, color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  will-change: transform;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -12px color-mix(in oklab, var(--accent) 70%, transparent); }
+.btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ------------------------- animated underline link ------------------------- */
+.ulink {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  color: inherit;
+}
+.ulink::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 380ms var(--ease-out);
+}
+.ulink:hover::after, .ulink[data-active="true"]::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* chips / badges / spec tags -------------------------------------------------*/
+.chip {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  color: var(--muted);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.spec-tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.6rem;
+  border-inline-start: 2px solid var(--accent);
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  color: var(--fg);
+  border-radius: 0;
+}
+
+/* stat counter cell — blue/accent left rule */
+.stat { border-inline-start: 2px solid var(--accent); padding-inline-start: 0.85rem; }
+.stat .n { font-family: var(--font-mono), monospace; font-weight: 600; }
+.stat .l { font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* ------------------------- signature backdrops ----------------------------- */
+/* faint blueprint / graph grid (BMT + technical shell) */
+.grid-blueprint {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+/* imaging reticle (MedA) — hairline grid, radially masked */
+.reticle {
+  background-image:
+    linear-gradient(var(--grid-accent) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-accent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 45%, #000 30%, transparent 72%);
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 45%, #000 30%, transparent 72%);
+}
+/* dot grid (Delivvo) */
+.dotgrid {
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+/* soft film grain */
+.grain::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+/* ambient spotlight glow */
+.spotlight {
+  position: absolute; inset: -20% -10% auto -10%; height: 120%;
+  background: radial-gradient(60% 55% at 50% 0%, var(--spotlight), transparent 70%);
+  pointer-events: none;
+}
+
+/* BMT corner crop-marks (technical registration marks) */
+.crop { position: relative; }
+.crop::before, .crop::after {
+  content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+  border: 2px solid var(--accent);
+}
+.crop::before { top: -6px; inset-inline-start: -6px; border-right: 0; border-bottom: 0; }
+.crop::after  { bottom: -6px; inset-inline-end: -6px; border-left: 0; border-top: 0; }
+
+/* ------------------------------ marquee ------------------------------------ */
+.marquee { display: flex; overflow: hidden; user-select: none; gap: 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee__track { display: flex; flex: 0 0 auto; min-width: 100%; align-items: center; animation: marquee 34s linear infinite; }
+@keyframes marquee { to { transform: translateX(-100%); } }
+
+/* framed portrait shell */
+.frame {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+.frame::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--fg) 6%, transparent);
+  border-radius: inherit;
+}
+
+/* device / browser mock chrome */
+.browserbar { height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: var(--surface-2); border-bottom: 1px solid var(--border); }
+.browserbar i { width: 10px; height: 10px; border-radius: 999px; background: color-mix(in oklab, var(--muted) 55%, transparent); display: block; }
+
+/* section rhythm */
+.section { padding-block: clamp(5rem, 12vh, 10rem); }
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--page-x); }
+.wrap-wide { width: 100%; max-width: 1600px; margin-inline: auto; padding-inline: var(--page-x); }
+
+/* pinned scene helpers */
+.pin-tall { position: relative; }
+.pin-stage { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: clip; }
+
+/* generic reveal fallback (used when JS reveals are off) */
+.will-reveal { opacity: 1; }
+
+/* Vertical rotated label */
+.vlabel { writing-mode: vertical-rl; text-orientation: mixed; }
+
+/* per-world display type tuning — keeps each brand face breathing correctly */
+[data-theme="delivvo"] .display { letter-spacing: 0; line-height: 1.04; }
+[data-theme="bmt"] .display { letter-spacing: -0.01em; }
+[data-theme="meda"] .display { letter-spacing: -0.015em; }
+
+/* cheap, compositor-only ambient motion (transform/opacity — off main thread) */
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes drift  { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(26px, 18px); } }
+.floaty { animation: floaty 7s ease-in-out infinite; will-change: transform; }
+.drift  { animation: drift 24s ease-in-out infinite; will-change: transform; }
+
+/* MedA "+" field — static marks with a gentle CSS float, no JS loops */
+.plus-mark { position: absolute; color: var(--accent); animation: floaty 8s ease-in-out infinite; will-change: transform; }
+
+/* ---------------------------- reduced motion ------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root { transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee__track { animation: none !important; }
 }
