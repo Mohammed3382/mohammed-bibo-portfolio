@@ -6,6 +6,7 @@ import Words from "@/components/ui/Words";
 import Magnetic from "@/components/ui/Magnetic";
 import Counter from "@/components/ui/Counter";
 import { HeroShowcase } from "@/components/delivvo-showcase/hero-showcase";
+import { Link2, FileSignature, History, BellRing, Mail, FileText, Wallet, ShieldCheck } from "lucide-react";
 
 const GATEWAYS = ["Stripe", "PayPal", "Tap", "Telr", "PayTabs", "Checkout.com", "Wise", "Payoneer", "IBAN"];
 
@@ -116,6 +117,60 @@ export default function DelivvoSection() {
             {GATEWAYS.map((g) => (
               <span key={g} className="chip" style={{ fontSize: "0.8rem", padding: "0.5rem 0.85rem" }}>{g}</span>
             ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ACT 2.5 — everything the handoff needs */}
+      <section data-theme-section="delivvo" className="section relative overflow-hidden pt-0">
+        <div className="wrap-wide">
+          <div className="mb-12 max-w-2xl">
+            <p className="eyebrow mb-5">Beyond the link</p>
+            <h3 className="display text-[clamp(1.8rem,4.4vw,3rem)] font-medium">
+              <Words as="span" text="Everything a client handoff actually needs, in one place." />
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: Link2, t: "One link, no login", d: "Your client opens a branded URL. Email plus a one-time code and they're in, with no account to create." },
+              { icon: FileSignature, t: "Contracts, signed inline", d: "Send a contract for a drawn signature with a full, timestamped audit trail." },
+              { icon: History, t: "Version history", d: "Every revision of a deliverable is kept, so nobody argues about which file was final." },
+              { icon: BellRing, t: "Automated reminders", d: "Quiet nudges chase the approval and the payment, so you don't have to." },
+              { icon: Wallet, t: "Nine gateways, 0% fee", d: "Stripe, PayPal, Tap, and more. The money lands straight in your own account." },
+              { icon: Mail, t: "Branded client emails", d: "Every notification your client gets carries your studio's name, not Delivvo's." },
+            ].map((f, i) => (
+              <Reveal key={f.t} delay={(i % 3) * 0.07} y={30}>
+                <div className="card group h-full p-6 transition-transform duration-300 hover:-translate-y-1">
+                  <span className="flex h-11 w-11 items-center justify-center" style={{ borderRadius: "calc(var(--radius) * 0.85)", background: "color-mix(in oklab, var(--accent) 16%, transparent)", color: "var(--accent)" }}>
+                    <f.icon size={20} strokeWidth={1.75} />
+                  </span>
+                  <h4 className="type-display mt-5 text-lg font-medium">{f.t}</h4>
+                  <p className="mt-2 text-[0.94rem] leading-relaxed text-muted">{f.d}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* the flow: send -> client acts -> paid */}
+          <Reveal delay={0.1} y={30} className="mt-8">
+            <div className="card flex flex-col items-stretch gap-4 p-6 sm:flex-row sm:items-center">
+              {[
+                { n: "01", t: "You send one link", ic: Link2 },
+                { n: "02", t: "They review, approve & sign", ic: ShieldCheck },
+                { n: "03", t: "They pay, into your gateway", ic: Wallet },
+              ].map((s, i, arr) => (
+                <div key={s.n} className="flex flex-1 items-center gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "var(--surface-2)", color: "var(--accent)" }}><s.ic size={18} /></span>
+                    <div>
+                      <span className="type-mono text-[0.62rem] text-muted">{s.n}</span>
+                      <p className="type-body text-[0.9rem] font-medium leading-tight">{s.t}</p>
+                    </div>
+                  </div>
+                  {i < arr.length - 1 && <span aria-hidden className="hidden flex-1 text-center text-muted sm:block">→</span>}
+                </div>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>

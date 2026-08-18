@@ -1,5 +1,7 @@
 "use client";
 
+import { BookOpen, Play, Home as HomeIcon, Search, User, Menu, Heart, Activity, Pill } from "lucide-react";
+
 /**
  * Faithful reconstruction of the real MedA+ lesson player + curriculum rail,
  * rebuilt from the current portal components (light clinical system, teal
@@ -113,6 +115,72 @@ export function MedaLessonPlayer() {
             })}
           </div>
         </aside>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- student "My learning" — mobile ---------- */
+const M = {
+  bg: "#f8fafc", surface: "#ffffff", surface2: "#f1f5f9",
+  ink: "#0f172a", muted: "#475569", faint: "#64748b", border: "#e2e8f0",
+  primary: "#116c90", success: "#16a34a",
+};
+const mdisplay = "var(--font-jakarta), sans-serif";
+const mbody = "var(--font-inter), sans-serif";
+const mmono = "var(--font-plexmono), monospace";
+
+const MY_COURSES = [
+  { spec: "Cardiology", icon: Heart, title: "The heart, case by case", done: 7, total: 18, pct: 39 },
+  { spec: "Emergency medicine", icon: Activity, title: "Airway management, step by step", done: 12, total: 20, pct: 60 },
+  { spec: "Pharmacology", icon: Pill, title: "Drugs you'll actually prescribe", done: 2, total: 12, pct: 17 },
+] as const;
+
+export function MedaMyCoursesMobile() {
+  return (
+    <div style={{ background: M.bg, color: M.ink, fontFamily: mbody, fontSize: 13, minHeight: 560, display: "flex", flexDirection: "column" }}>
+      {/* header */}
+      <div style={{ height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", background: `${M.surface}d9`, borderBottom: `1px solid ${M.border}`, backdropFilter: "blur(6px)" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brands/meda/logo.png" alt="MedA+" style={{ height: 22, width: "auto" }} />
+        <span style={{ width: 34, height: 34, display: "grid", placeItems: "center", color: M.muted }}><Menu size={18} /></span>
+      </div>
+
+      <div style={{ padding: "18px 16px", flex: 1 }}>
+        <p style={{ fontFamily: mmono, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: M.primary }}>Student</p>
+        <h1 style={{ fontFamily: mdisplay, fontWeight: 700, fontSize: 24, letterSpacing: "-0.02em", marginTop: 4 }}>My learning</h1>
+        <p style={{ color: M.muted, marginTop: 4, fontSize: 13 }}>Pick up where you left off.</p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 18 }}>
+          {MY_COURSES.map((c) => (
+            <div key={c.title} style={{ borderRadius: 16, border: `1px solid ${M.border}`, background: M.surface, overflow: "hidden", boxShadow: "0 1px 2px rgba(15,26,46,.04), 0 10px 24px -18px rgba(15,26,46,.2)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", borderBottom: `1px solid ${M.border}`, background: `color-mix(in oklab, ${M.primary} 7%, ${M.surface})` }}>
+                <span style={{ display: "grid", width: 34, height: 34, placeItems: "center", borderRadius: 10, background: M.surface, border: `1px solid ${M.border}`, color: M.primary }}><c.icon size={17} /></span>
+                <span style={{ fontFamily: mmono, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.14em", color: M.primary }}>{c.spec}</span>
+              </div>
+              <div style={{ padding: 14 }}>
+                <h3 style={{ fontFamily: mdisplay, fontWeight: 600, fontSize: 15, lineHeight: 1.3 }}>{c.title}</h3>
+                <p style={{ fontFamily: mmono, fontSize: 10.5, color: M.muted, marginTop: 8 }}>{c.done}/{c.total} lectures · {c.pct}%</p>
+                <div style={{ height: 6, borderRadius: 999, background: M.surface2, marginTop: 8, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${c.pct}%`, borderRadius: 999, background: M.primary }} />
+                </div>
+                <button style={{ marginTop: 12, width: "100%", height: 40, borderRadius: 8, background: M.primary, color: "#fff", border: "none", fontFamily: mbody, fontWeight: 600, fontSize: 13, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 7 }}>
+                  <Play size={15} /> Continue
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* bottom nav */}
+      <div style={{ height: 56, display: "flex", borderTop: `1px solid ${M.border}`, background: M.surface }}>
+        {[[HomeIcon, "Home", false], [BookOpen, "Courses", true], [Search, "Search", false], [User, "Profile", false]].map(([Ic, l, active]) => (
+          <div key={l as string} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 4, color: active ? M.primary : M.faint }}>
+            {(() => { const I = Ic as React.ElementType; return <I size={18} />; })()}
+            <span style={{ fontFamily: mmono, fontSize: 8.5 }}>{l as string}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

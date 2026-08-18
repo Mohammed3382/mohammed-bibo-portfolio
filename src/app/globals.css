@@ -62,18 +62,9 @@
   color-scheme: dark;
 }
 
-/* The morph: only the tokens that read large on screen are eased (keeps the
-   per-frame repaint cheap). The rest snap — imperceptible, and much lighter. */
-:root {
-  transition:
-    --bg var(--morph) var(--ease),
-    --fg var(--morph) var(--ease),
-    --muted var(--morph) var(--ease),
-    --surface var(--morph) var(--ease),
-    --border var(--morph) var(--ease),
-    --accent var(--morph) var(--ease),
-    --radius var(--morph) var(--ease);
-}
+/* The theme SNAPS instantly (no per-frame recalc). The visual change between
+   worlds is carried by a GPU-only curtain wipe in <BrandTransition>, which masks
+   the one-frame snap. This is what keeps the transitions at 60fps. */
 
 /* ---------------------------- DELIVVO world -------------------------------- */
 /* Dark editorial SaaS · indigo functional accent · amber signature spark      */
@@ -154,7 +145,6 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
-  transition: background var(--morph) var(--ease), color var(--morph) var(--ease);
 }
 
 ::selection { background: var(--accent); color: var(--accent-ink); }
@@ -357,14 +347,8 @@ img, svg, video { display: block; max-width: 100%; }
 .browserbar { height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: var(--surface-2); border-bottom: 1px solid var(--border); }
 .browserbar i { width: 10px; height: 10px; border-radius: 999px; background: color-mix(in oklab, var(--muted) 55%, transparent); display: block; }
 
-/* section rhythm.
-   content-visibility keeps offscreen sections OUT of the per-frame style recalc,
-   so the whole-page theme morph stays cheap even with a large DOM. */
-.section {
-  padding-block: clamp(5rem, 12vh, 10rem);
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
-}
+/* section rhythm */
+.section { padding-block: clamp(5rem, 12vh, 10rem); }
 
 /* keyframes for the ported Delivvo showcase (cursor click ripple + tab crossfade) */
 @keyframes cursor-click { 0% { transform: scale(0.5); opacity: 0.85; } 100% { transform: scale(1.6); opacity: 0; } }

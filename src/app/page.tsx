@@ -8,7 +8,6 @@ import MedaSection from "@/components/sections/MedaSection";
 import About from "@/components/sections/About";
 import Resume from "@/components/sections/Resume";
 import Contact from "@/components/sections/Contact";
-import Words from "@/components/ui/Words";
 
 export default function Home() {
   return (
@@ -24,6 +23,8 @@ export default function Home() {
         name="Delivvo"
         kind="Client-portal SaaS"
         tagline="One link between a freelancer and their client, where they review, approve, sign, and pay. Delivvo takes zero platform fee."
+        curtain="#6366f1"
+        ink="#ffffff"
       />
       <DelivvoSection />
 
@@ -34,6 +35,8 @@ export default function Home() {
         name="BMT Materials"
         kind="Building-materials commerce"
         tagline="A bilingual Jordanian storefront, mobile app, and admin. Priced by the exact metre, delivered by governorate."
+        curtain="#006cb4"
+        ink="#ffffff"
       />
       <BmtSection />
 
@@ -44,25 +47,23 @@ export default function Home() {
         name="MedA+ Academy"
         kind="Clinical education platform"
         tagline="Case-based medical courses built by the students a year ahead. Invite-based, bilingual, and properly protected."
+        curtain="#116c90"
+        ink="#ffffff"
       />
       <MedaSection />
 
       {/* return to the shell before the personal chapters */}
-      <section
-        data-theme-section="shell"
-        className="relative flex min-h-[80svh] items-center justify-center overflow-hidden text-center"
-      >
-        <div className="dotgrid absolute inset-0 opacity-40" aria-hidden />
-        <div className="wrap relative z-10">
-          <p className="eyebrow mb-6 justify-center">Same builder</p>
-          <h2 className="display text-[clamp(2rem,6vw,4.5rem)] font-semibold">
-            <Words as="span" text="Three worlds." />{" "}
-            <span className="text-muted">
-              <Words as="span" text="One person behind them." delay={0.15} />
-            </span>
-          </h2>
-        </div>
-      </section>
+      <BrandTransition
+        id="about-lead"
+        theme="shell"
+        index="00"
+        name="One builder."
+        kind="The person behind them"
+        eyebrow="Same builder"
+        tagline="Three products, three worlds, one person who designed, built, and runs all of it."
+        curtain="#101014"
+        ink="#f4f4f5"
+      />
 
       <About />
       <Resume />

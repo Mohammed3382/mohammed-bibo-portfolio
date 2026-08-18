@@ -4,7 +4,7 @@ import Reveal from "@/components/ui/Reveal";
 import Words from "@/components/ui/Words";
 import Magnetic from "@/components/ui/Magnetic";
 import { BrowserFrame, PhoneFrame, Shot } from "@/components/ui/Frame";
-import { MedaLessonPlayer } from "@/components/mocks/MedaMocks";
+import { MedaLessonPlayer, MedaMyCoursesMobile } from "@/components/mocks/MedaMocks";
 
 /* --- small clinical line icons (lucide-style, 1.6 stroke) --- */
 function Icon({ name }: { name: "heart" | "pill" | "scope" | "bone" | "scan" | "book" }) {
@@ -171,6 +171,55 @@ export default function MedaSection() {
         </div>
       </section>
 
+      {/* ACT 2.7 — specialties + instructors */}
+      <section data-theme-section="meda" className="section relative overflow-hidden pt-0">
+        <div className="wrap-wide grid grid-cols-1 gap-14 lg:grid-cols-2">
+          <div>
+            <p className="eyebrow mb-5">Specialties</p>
+            <h3 className="display text-[clamp(1.7rem,3.8vw,2.6rem)] font-bold">
+              <Words as="span" text="Organised the way medicine is." />
+            </h3>
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {SPECIALTIES.map((s, i) => (
+                <Reveal key={s.s} delay={i * 0.05}>
+                  <div className="card flex h-full items-center gap-3 p-4 transition-transform duration-300 hover:-translate-y-1" style={{ borderRadius: 12 }}>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg" style={{ background: "var(--surface-2)", color: "var(--accent)", border: "1px solid var(--border)" }}>
+                      <Icon name={s.icon} />
+                    </span>
+                    <span className="type-body text-[0.92rem] font-medium">{s.s}</span>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow mb-5">The instructors</p>
+            <h3 className="display text-[clamp(1.7rem,3.8vw,2.6rem)] font-bold">
+              <Words as="span" text="A year or two ahead, and still in it." />
+            </h3>
+            <div className="mt-8 flex flex-col gap-3">
+              {[
+                { name: "Layla", spec: "Cardiology", year: "MD-4", n: 3 },
+                { name: "Omar", spec: "Emergency medicine", year: "MD-5", n: 2 },
+                { name: "Sara", spec: "Pharmacology", year: "MD-4", n: 4 },
+                { name: "Yousef", spec: "Radiology", year: "MD-5", n: 2 },
+              ].map((ins, i) => (
+                <Reveal key={ins.name} delay={i * 0.06}>
+                  <div className="card flex items-center gap-3 p-4">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full type-display font-semibold" style={{ background: "color-mix(in oklab, var(--accent) 12%, var(--surface))", color: "var(--accent)" }}>{ins.name[0]}</span>
+                    <div className="min-w-0 flex-1">
+                      <p className="type-display text-[0.98rem] font-semibold">{ins.name} <span className="type-mono text-[0.66rem] text-muted">· {ins.year}</span></p>
+                      <p className="type-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">{ins.spec}</p>
+                    </div>
+                    <span className="chip">{ins.n} courses</span>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ACT 3 — how access works (matches the real 4-step) */}
       <section data-theme-section="meda" className="section relative overflow-hidden pt-0">
         <div className="wrap">
@@ -199,7 +248,7 @@ export default function MedaSection() {
 
       {/* ACT 4 — shipped, secure, bilingual */}
       <section data-theme-section="meda" className="section relative overflow-hidden pt-0">
-        <div className="wrap grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div className="wrap grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="eyebrow mb-5">Shipped · Secure · Bilingual</p>
             <h3 className="display text-[clamp(1.8rem,4.4vw,3rem)] font-bold">
@@ -224,8 +273,8 @@ export default function MedaSection() {
           </div>
           <Reveal y={40}>
             <div className="flex justify-center">
-              <div className="w-[260px]">
-                <PhoneFrame><Shot src="/brands/meda/mobile.png" alt="MedA+ Academy on mobile" /></PhoneFrame>
+              <div className="w-[270px]">
+                <PhoneFrame><MedaMyCoursesMobile /></PhoneFrame>
               </div>
             </div>
           </Reveal>

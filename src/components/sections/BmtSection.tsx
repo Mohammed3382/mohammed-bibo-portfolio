@@ -6,6 +6,7 @@ import Magnetic from "@/components/ui/Magnetic";
 import Counter from "@/components/ui/Counter";
 import { BrowserFrame, PhoneFrame, Shot } from "@/components/ui/Frame";
 import { BmtProductPageMobile, BmtAdmin } from "@/components/mocks/BmtMocks";
+import { MapPin, Truck, Calculator } from "lucide-react";
 
 const STATS = [
   { v: 2, suffix: "", l: "Categories" },
@@ -158,6 +159,54 @@ export default function BmtSection() {
                 <PhoneFrame><Shot src="/brands/bmt/mobile-ar.png" alt="BMT storefront on mobile, Arabic" /></PhoneFrame>
                 <p className="mt-3 type-mono text-[0.62rem] uppercase tracking-[0.14em] text-muted" dir="rtl" style={{ fontFamily: "var(--font-tajawal)" }}>عربي · RTL</p>
               </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ACT 3.5 — delivery coverage */}
+      <section data-theme-section="bmt" className="section relative overflow-hidden pt-0">
+        <div className="wrap grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <p className="eyebrow mb-5">Coverage</p>
+            <h3 className="display text-[clamp(1.8rem,4.4vw,3rem)] font-bold">
+              <Words as="span" text="We deliver across all twelve governorates." />
+            </h3>
+            <p className="mt-6 max-w-md text-[1.02rem] leading-relaxed text-muted">
+              Pick your governorate and drop a pin. Delivery is worked out by the exact distance from
+              the Sahab yard, and the total on the screen is the total you hand over at the door.
+            </p>
+            <div className="mt-8 flex flex-col gap-4">
+              {[
+                { ic: Truck, t: "Delivered by your city", d: "A truck routed to your governorate." },
+                { ic: MapPin, t: "Priced to your pin", d: "Exact distance, not a flat guess." },
+                { ic: Calculator, t: "No surprises", d: "The fee is shown before you pay." },
+              ].map((r) => (
+                <div key={r.t} className="flex items-start gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center" style={{ background: "color-mix(in oklab, var(--accent) 16%, transparent)", color: "var(--accent)" }}><r.ic size={18} /></span>
+                  <div>
+                    <p className="type-body text-[0.98rem] font-semibold">{r.t}</p>
+                    <p className="text-[0.88rem] text-muted">{r.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Magnetic>
+              <button className="btn btn-primary mt-8" data-cursor>Check your area <span aria-hidden>→</span></button>
+            </Magnetic>
+          </div>
+
+          <Reveal y={40}>
+            <div className="grid grid-cols-2 gap-px sm:grid-cols-3" style={{ background: "var(--border)" }}>
+              {[
+                ["Amman", 24], ["Irbid", 12], ["Zarqa", 9], ["Balqa", 6], ["Madaba", 5], ["Karak", 7],
+                ["Mafraq", 6], ["Jerash", 3], ["Ajloun", 3], ["Aqaba", 4], ["Ma'an", 3], ["Tafilah", 2],
+              ].map(([name, areas]) => (
+                <div key={name as string} className="flex items-center justify-between gap-2 p-4" style={{ background: "var(--surface)", borderInlineStart: "2px solid var(--accent)" }}>
+                  <span className="type-body text-[0.9rem] font-medium">{name as string}</span>
+                  <span className="type-mono text-[0.66rem] text-muted">{areas as number} areas</span>
+                </div>
+              ))}
             </div>
           </Reveal>
         </div>
