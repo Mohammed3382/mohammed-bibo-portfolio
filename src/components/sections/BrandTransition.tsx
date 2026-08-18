@@ -35,7 +35,7 @@ export default function BrandTransition({ id, theme, index, name, kind, tagline 
       className="pin-tall"
       style={{ height: "175vh" }}
     >
-      <div className="pin-stage grain">
+      <div className="pin-stage">
         <div className="spotlight" aria-hidden />
 
         {/* giant ghost index */}
@@ -45,16 +45,17 @@ export default function BrandTransition({ id, theme, index, name, kind, tagline 
           style={{
             y: ghostY,
             x: ghostX,
-            fontSize: "min(52vw, 40rem)",
+            fontSize: "min(40vw, 24rem)",
             lineHeight: 1,
             color: "var(--accent)",
             opacity: 0.08,
+            willChange: "transform",
           }}
         >
           {index}
         </motion.span>
 
-        <motion.div style={{ y: contentY, opacity }} className="wrap relative z-10 text-center">
+        <motion.div style={{ y: contentY, opacity, willChange: "transform" }} className="wrap relative z-10 text-center">
           <p className="eyebrow mb-6 justify-center">
             World {index} / 03 · {kind}
           </p>

@@ -48,12 +48,11 @@ export default function Hero() {
           top: "-10%",
           right: "-8%",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,255,255,0.06), transparent 60%)",
-          filter: "blur(20px)",
+          background: "radial-gradient(circle, rgba(255,255,255,0.06), transparent 65%)",
         }}
       />
 
-      <motion.div style={{ y: yBlur, opacity }} className="wrap-wide relative z-10 w-full pt-24">
+      <motion.div style={{ y: yBlur, opacity, willChange: "transform" }} className="wrap-wide relative z-10 w-full pt-24">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
           {/* thesis */}
           <div>
