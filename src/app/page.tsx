@@ -6,7 +6,6 @@ import DelivvoSection from "@/components/sections/DelivvoSection";
 import BmtSection from "@/components/sections/BmtSection";
 import MedaSection from "@/components/sections/MedaSection";
 import About from "@/components/sections/About";
-import Resume from "@/components/sections/Resume";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -66,7 +65,6 @@ export default function Home() {
       />
 
       <About />
-      <Resume />
       <Contact />
     </main>
   );

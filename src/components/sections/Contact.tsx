@@ -9,7 +9,7 @@ import Magnetic from "@/components/ui/Magnetic";
 const SOCIAL = [
   { label: "Email", href: "mailto:mohdbibo22@gmail.com" },
   { label: "GitHub", href: "https://github.com/Mohammed3382" },
-  { label: "Résumé", href: "/cv/Mohammed-Bibo-CV.pdf" },
+  { label: "Résumé", href: "/resume" },
 ];
 
 const LIVE = [

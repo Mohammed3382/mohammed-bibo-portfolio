@@ -2,13 +2,14 @@
 
 import Reveal from "@/components/ui/Reveal";
 import Words from "@/components/ui/Words";
+import Magnetic from "@/components/ui/Magnetic";
 import { Shot } from "@/components/ui/Frame";
 
 const FACTS = [
   { k: "Based in", v: "Dubai, UAE" },
-  { k: "Studying", v: "BSc Computer Science · UOWD" },
+  { k: "Studying", v: "BSc Computer Science · UOWD · 2023 → 2027" },
   { k: "Languages", v: "Arabic (fluent) · English (advanced)" },
-  { k: "Status", v: "Open to work" },
+  { k: "Right now", v: "Building Delivvo · open to work" },
 ];
 
 export default function About() {
@@ -38,20 +39,26 @@ export default function About() {
         <div>
           <p className="eyebrow mb-6">About</p>
           <h2 className="display text-[clamp(1.9rem,5vw,3.6rem)] font-semibold">
-            <Words as="span" text="I like the part where an idea becomes something people rely on." />
+            <Words as="span" text="I build the whole thing, then I keep it running." />
           </h2>
 
           <Reveal delay={0.2} className="mt-8 flex max-w-2xl flex-col gap-5 text-[1.05rem] leading-relaxed text-muted">
             <p>
-              I&apos;m a computer-science student at the University of Wollongong in Dubai, and a
-              hands-on full-stack builder. I design, ship, and run production software end to end:
-              product, interface, database, payments, authentication, and deployment.
+              I&apos;m Mohammed, a computer-science student in Dubai who spends most of his time
+              building software other people actually depend on. Not demos. Products with real users,
+              real payments, and real support messages when something breaks at midnight.
             </p>
             <p>
-              Delivvo is my own SaaS, live and taking payments. Alongside it I lead the build at
-              BMT Materials and MedA+ Academy, and I&apos;ve shipped Cutroom, a desktop AI video
-              editor. I lean on AI heavily, but I keep everything under my own control. That&apos;s
-              how you move fast and still trust what you put in front of people.
+              I work end to end on purpose. The same day I sketch a screen I&apos;ll write the API
+              behind it, design the database, wire the payment gateway, and push it live on its own
+              domain. Delivvo is mine from the first commit to the invoices it settles. I lead BMT
+              Materials and MedA+ Academy the same way, and Cutroom, a desktop AI video editor, is one
+              I shipped on the side.
+            </p>
+            <p>
+              AI is a big part of how I move this fast, and I use it hard. But I read what it writes and
+              own every call. That&apos;s the only way I&apos;d put my name on something and hand it to
+              a stranger.
             </p>
           </Reveal>
 
@@ -62,6 +69,19 @@ export default function About() {
                 <p className="type-body mt-1 text-[0.98rem]">{f.v}</p>
               </div>
             ))}
+          </Reveal>
+
+          <Reveal delay={0.4} className="mt-10 flex flex-wrap items-center gap-4">
+            <Magnetic>
+              <a href="/resume" className="btn btn-primary" data-cursor>
+                Read the full résumé <span aria-hidden>→</span>
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="mailto:mohdbibo22@gmail.com" className="btn btn-ghost" data-cursor>
+                Get in touch
+              </a>
+            </Magnetic>
           </Reveal>
         </div>
       </div>

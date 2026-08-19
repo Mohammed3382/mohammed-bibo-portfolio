@@ -87,13 +87,7 @@ export default function Hero() {
                 </button>
               </Magnetic>
               <Magnetic>
-                <a
-                  href="/cv/Mohammed-Bibo-CV.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-ghost"
-                  data-cursor
-                >
+                <a href="/resume" className="btn btn-ghost" data-cursor>
                   Résumé
                 </a>
               </Magnetic>

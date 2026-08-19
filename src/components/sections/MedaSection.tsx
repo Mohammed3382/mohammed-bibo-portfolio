@@ -4,6 +4,7 @@ import Reveal from "@/components/ui/Reveal";
 import Words from "@/components/ui/Words";
 import Magnetic from "@/components/ui/Magnetic";
 import { BrowserFrame, PhoneFrame, Shot } from "@/components/ui/Frame";
+import FitScale from "@/components/ui/FitScale";
 import { MedaLessonPlayer, MedaMyCoursesMobile } from "@/components/mocks/MedaMocks";
 
 /* --- small clinical line icons (lucide-style, 1.6 stroke) --- */
@@ -160,13 +161,11 @@ export default function MedaSection() {
             <p className="type-mono text-[0.66rem] uppercase tracking-[0.16em] text-muted">Case-based · Protected</p>
           </div>
           <Reveal y={40}>
-            <BrowserFrame url="med-aplus.com/app/courses">
-              <div className="overflow-x-auto">
-                <div style={{ minWidth: 840 }}>
-                  <MedaLessonPlayer />
-                </div>
-              </div>
-            </BrowserFrame>
+            <FitScale designWidth={1040} className="rounded-2xl">
+              <BrowserFrame url="med-aplus.com/app/courses">
+                <MedaLessonPlayer />
+              </BrowserFrame>
+            </FitScale>
           </Reveal>
         </div>
       </section>
@@ -222,7 +221,7 @@ export default function MedaSection() {
 
       {/* ACT 3 — how access works (matches the real 4-step) */}
       <section data-theme-section="meda" className="section relative overflow-hidden pt-0">
-        <div className="wrap">
+        <div className="wrap-wide">
           <div className="mb-10 flex items-baseline justify-between border-t hairline pt-6">
             <p className="eyebrow">How it works</p>
             <p className="type-mono text-[0.66rem] uppercase tracking-[0.16em] text-muted">Learning that fits your life</p>
@@ -248,7 +247,7 @@ export default function MedaSection() {
 
       {/* ACT 4 — shipped, secure, bilingual */}
       <section data-theme-section="meda" className="section relative overflow-hidden pt-0">
-        <div className="wrap grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="wrap-wide grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="eyebrow mb-5">Shipped · Secure · Bilingual</p>
             <h3 className="display text-[clamp(1.8rem,4.4vw,3rem)] font-bold">
@@ -272,10 +271,8 @@ export default function MedaSection() {
             </Reveal>
           </div>
           <Reveal y={40}>
-            <div className="flex justify-center">
-              <div className="w-[270px]">
-                <PhoneFrame><MedaMyCoursesMobile /></PhoneFrame>
-              </div>
+            <div className="flex justify-center lg:justify-end">
+              <PhoneFrame className="w-[clamp(260px,80vw,320px)]"><MedaMyCoursesMobile /></PhoneFrame>
             </div>
           </Reveal>
         </div>
