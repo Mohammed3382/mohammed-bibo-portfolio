@@ -247,32 +247,39 @@ export default function MedaSection() {
 
       {/* ACT 4 — shipped, secure, bilingual */}
       <section data-theme-section="meda" className="section relative overflow-hidden pt-0">
-        <div className="wrap-wide grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="wrap-wide grid grid-cols-1 items-center gap-x-14 gap-y-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <p className="eyebrow mb-5">Shipped · Secure · Bilingual</p>
             <h3 className="display text-[clamp(1.8rem,4.4vw,3rem)] font-bold">
               <Words as="span" text="A real platform, with real protection." />
             </h3>
-            <ul className="mt-6 flex flex-col gap-3">
-              {[
-                "Gated, expiring video links with a moving per-user watermark",
-                "One active device per account, a real single-session lock",
-                "Student, instructor, and admin sides, each behind its own auth",
-                "Full Arabic and English, written natively rather than translated",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3 text-[0.98rem] leading-relaxed text-muted">
-                  <span className="mt-1 type-display font-bold" style={{ color: "var(--accent)" }}>+</span>
-                  {t}
-                </li>
+            <p className="mt-5 max-w-md text-[1.02rem] leading-relaxed text-muted">
+              MedA+ isn&apos;t a folder of videos. It&apos;s a full platform with three roles, gated
+              content, and protection that holds up outside the demo.
+            </p>
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {([
+                { ic: "scan", t: "Watermarked video", d: "Gated, expiring links with a moving per-user mark." },
+                { ic: "scope", t: "Single-session lock", d: "One active device per account, enforced." },
+                { ic: "book", t: "Three roles", d: "Student, instructor, and admin, each behind its own auth." },
+                { ic: "heart", t: "Native bilingual", d: "Arabic and English, written, not translated." },
+              ] as const).map((f, i) => (
+                <Reveal key={f.t} delay={i * 0.06}>
+                  <div className="card h-full p-4" style={{ borderInlineStart: "2px solid var(--accent)" }}>
+                    <span style={{ color: "var(--accent)" }}><Icon name={f.ic} /></span>
+                    <p className="type-display mt-3 text-[0.98rem] font-semibold">{f.t}</p>
+                    <p className="mt-1 text-[0.86rem] leading-relaxed text-muted">{f.d}</p>
+                  </div>
+                </Reveal>
               ))}
-            </ul>
+            </div>
             <Reveal delay={0.2} className="mt-8">
               <Magnetic><a href="https://med-aplus.com" target="_blank" rel="noopener noreferrer" className="btn btn-primary" data-cursor>Visit MedA+ Academy <span aria-hidden>↗</span></a></Magnetic>
             </Reveal>
           </div>
           <Reveal y={40}>
             <div className="flex justify-center lg:justify-end">
-              <PhoneFrame className="w-[clamp(260px,80vw,320px)]"><MedaMyCoursesMobile /></PhoneFrame>
+              <PhoneFrame className="w-[clamp(300px,86vw,380px)]"><MedaMyCoursesMobile /></PhoneFrame>
             </div>
           </Reveal>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Play, Home as HomeIcon, Search, User, Menu, Heart, Activity, Pill } from "lucide-react";
+import { BookOpen, Play, Home as HomeIcon, Search, User, Menu, Heart, Activity } from "lucide-react";
 
 /**
  * Faithful reconstruction of the real MedA+ lesson player + curriculum rail,
@@ -133,12 +133,11 @@ const mmono = "var(--font-plexmono), monospace";
 const MY_COURSES = [
   { spec: "Cardiology", icon: Heart, title: "The heart, case by case", done: 7, total: 18, pct: 39 },
   { spec: "Emergency medicine", icon: Activity, title: "Airway management, step by step", done: 12, total: 20, pct: 60 },
-  { spec: "Pharmacology", icon: Pill, title: "Drugs you'll actually prescribe", done: 2, total: 12, pct: 17 },
 ] as const;
 
 export function MedaMyCoursesMobile() {
   return (
-    <div style={{ background: M.bg, color: M.ink, fontFamily: mbody, fontSize: 13, minHeight: 560, display: "flex", flexDirection: "column" }}>
+    <div style={{ background: M.bg, color: M.ink, fontFamily: mbody, fontSize: 13, display: "flex", flexDirection: "column" }}>
       {/* header */}
       <div style={{ height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", background: `${M.surface}d9`, borderBottom: `1px solid ${M.border}`, backdropFilter: "blur(6px)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
