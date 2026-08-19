@@ -89,10 +89,13 @@ const SKILLS = [
   { g: "Ship & run", items: ["Vercel", "Custom domains", "DNS", "CI/CD"] },
 ];
 
+const CV_FILE = "/cv/Mohammed-Bibo-CV-2026-08-19.pdf";
+const CV_UPDATED = "Updated August 2026";
+
 function DownloadBtn({ className }: { className?: string }) {
   return (
     <Magnetic>
-      <a href="/cv/Mohammed-Bibo-CV.pdf" target="_blank" rel="noopener noreferrer" className={`btn btn-primary ${className ?? ""}`} data-cursor>
+      <a href={CV_FILE} target="_blank" rel="noopener noreferrer" className={`btn btn-primary ${className ?? ""}`} data-cursor>
         Download résumé (PDF) <span aria-hidden>↓</span>
       </a>
     </Magnetic>
@@ -116,8 +119,9 @@ export default function ResumePage() {
                 </span>
               </h1>
             </div>
-            <Reveal delay={0.2}>
+            <Reveal delay={0.2} className="flex flex-col items-start gap-2 md:items-end">
               <DownloadBtn />
+              <span className="type-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted">{CV_UPDATED} · PDF · 56 KB</span>
             </Reveal>
           </div>
 
@@ -235,10 +239,11 @@ export default function ResumePage() {
             </Reveal>
             <Reveal delay={0.1} className="mt-4 flex flex-col gap-2">
               {[
-                "C++ Programming, Beginner to Beyond — Udemy",
-                "Python 3 Programming — University of Michigan",
-                "Code Generation & Optimization with IBM Granite — IBM",
-                "Fundamentals of Digital Marketing — Google",
+                "Business Analysis & Process Management · Coursera · Aug 2024",
+                "Code Generation & Optimization with IBM Granite · IBM · Mar 2025",
+                "Fundamentals of Digital Marketing · Google · Feb 2025",
+                "C++ Programming, Beginner to Beyond · Udemy · Dec 2025",
+                "Python 3 Programming · University of Michigan · in progress",
               ].map((c) => (
                 <div key={c} className="flex items-start gap-3 text-[0.92rem] text-muted">
                   <span className="mt-1 text-accent">✦</span>{c}
